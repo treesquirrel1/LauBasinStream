@@ -33,19 +33,19 @@
   filename = 'argo.mat';
   % Set constants
   R = 6371.0;   % Radius of the earth (in km)
-  ds = 1.0;    % Arc length increment
-  L = 100.0;   % Streamline length
+  ds = 10.0;    % Arc length increment
+  L = 1000.0;   % Streamline length
   
   % Set flag
-  flag = 3;     % Flag for x,y arrays for streamline calcs
+  flag = 1;     % Flag for x,y arrays for streamline calcs
                 % See next partition for information on each flag
   
   % Set intial bounds
-  x1 = 182;
-  y1 = -14.75;
-  x2 = 186;
-  y2 = -33.75;
-  m = 0.5;
+  x1 = 188;
+  y1 = -20;
+  x2 = 188;
+  y2 = -10;
+  m = 0.25;
   N = 100;      % Set spacing for arrays when flag = 2
 %% Create the arrays for x0 and y0
 % Uses function driverx0y0.m for x0,y0 for 3 different cases
@@ -76,16 +76,11 @@ y = squeeze(yy(1,:));
 
 %% Convert from deg to KM and find the starting points
 [x0KM, y0KM, xKM, yKM, dx, dy] = deg2curve(xx, yy, x, y, x0, y0, R);
-%% Find the Eigen values associated with the mean flow pattern
-% Smoothed version
+%% Find the Eigen values associated with the 
 % Meshgrid xKM, yKM for use in smoothing
 [yKMmesh, xKMmesh] = meshgrid(yKM, xKM);
-uSmooth = SmoothField(xKMmesh, yKMmesh, 200, 5, u);
-vSmooth = SmoothField(xKMmesh, yKMmesh, 200, 5, v);
-[smMap, sXgrid, sYgrid] = EigenFlow(uSmooth, vSmooth, xx, yy, 1);
-
-% Raw data version
-[rdMap, rXgrid, rYgrid] = EigenFlow(u, v, xx, yy, 1);
+uSmooth = Smoothfield(xKMmesh, yKMmesh, 100, 3, u);
+vSmooth = Smoothfield(xKMmesh, yKMmesh, 100, 3, v);
 
    
 %% Streamline 

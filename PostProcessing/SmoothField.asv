@@ -13,15 +13,16 @@ function fNew = SmoothField( xGrid, yGrid, dr, nP, f )
 %
 %       xGrid : 2-D array of x-grid points
 %       yGrid : 2-D array of y-grid points
+%
 %       dr : half-width of the Gaussian
 %       nP : the number of points in the Gaussian stencil ( gives a smoothing kernel
 %            over [i-nP,i+nP]X[j-nP,j+nP] )
+%
 %       f  : the 2-D array of observations that you want to smooth. Should be the same size as xGrid 
 %            and yGrid.
 %
 %  Output : 
 %       fNew : smoothed version of f. Be aware that a border of width "nP" is not included in fNew
-%
 % Written by: Joe Schoonover (schoonovernumerics@gmail.com)
 % Date: 07/16/2015
 % Modified:06/23/2016 E.Simons
